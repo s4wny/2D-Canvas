@@ -1,14 +1,11 @@
 /**
  * 2D Canvas - Game development the easy way
  *
- * Blargh
- * ...
- *
  * @author Sony? aka Sawny @link http://4morefun.net
-           ...
+ * @author matert
  * @licens ...
  * @example ...
- */
+**/
  
 (function() {
 
@@ -34,13 +31,18 @@
          * @return "imgObj".
          * @example 2DC.circle(400, 200, 20, "blue");
          */
-        this.circle = function(x    /* (req) int */,
-                               y    /* (req) int */,
-                               opt1 /* int = size | string = color */,
-                               opt2 /* !opt1 */)
+                            //x = int y = int 
+        this.circle = function(x ,y , opt1, opt2)         
         {
-            
-            //Opts?
+            if(isInt(opt1)){
+              this.size  = opt1;
+              this.color = opt2;
+            }           
+            if(isInt(opt2)){
+              this.color = opt1;
+              this.size  = opt2;
+            }
+//Opts?
             
             return
             {
@@ -107,8 +109,13 @@
         //else
             //color table
     }    
-    
-    
+
+function isInt(i){
+       if(typeof i == "number")
+           return true;
+       return false;
+}
+
 }();
 
 
