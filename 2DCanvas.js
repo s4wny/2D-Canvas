@@ -67,8 +67,8 @@
      */
     $2DC.circle = function(x, y, opt1, opt2)
     {
-	    console.log("Circle ["+x+", "+y+"]");
-		
+        console.log("Circle ["+x+", "+y+"]");
+        
         //Opts
         if(isInt(opt1) && opt1 !== undefined) {
                 size  = opt1;
@@ -82,7 +82,7 @@
         
         
         return new function() {
-		    return {
+            return {
                 x        : x,
                 y        : y,
                 xSpeed   : 0,
@@ -94,7 +94,7 @@
                 /* Functions */
                 draw     : draw,
                 drawAt   : drawAt
-			}
+            }
         };
     }
      
@@ -115,18 +115,18 @@
      */
     draw = function(x, y)
     {
-	        console.log("Draw ["+x+", "+y+"]");
-			this.x += x;
-			this.y += y;
-			
+            console.log("Draw ["+x+", "+y+"]");
+            this.x += x;
+            this.y += y;
+            
             /*var canvas = document.getElementById("myCanvas").getContext("2d");
            
             context.beginPath();
             context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
             context.fillStyle = "#8ED6FF";
             context.fill();*/
-			
-			return this;
+            
+            return this;
     }
     
     
@@ -135,9 +135,9 @@
      */
     drawAt = function(x, y)
     {
-	    this.x = x;
-		this.y = y;
-		
+        this.x = x;
+        this.y = y;
+        
         return this;
     }
     
