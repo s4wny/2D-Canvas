@@ -68,6 +68,15 @@
     $2DC.circle = function(x, y, opt1, opt2)
     {
         //Opts
+        if(isInt(opt1)){
+                this.size  = opt1;
+                this.color = opt2;
+        }
+        
+        if(isInt(opt2)){
+                this.color = opt1;
+                this.size  = opt2;
+        }
         
         
         return { //TODO check if this work..
