@@ -67,30 +67,34 @@
      */
     $2DC.circle = function(x, y, opt1, opt2)
     {
+	    console.log("Circle ["+x+", "+y+"]");
+		
         //Opts
-        if(isInt(opt1)){
-                this.size  = opt1;
-                this.color = opt2;
+        if(isInt(opt1) && opt1 !== undefined) {
+                size  = opt1;
+                color = opt2;
         }
         
-        if(isInt(opt2)){
-                this.color = opt1;
-                this.size  = opt2;
+        if(isInt(opt2) && opt2 !== undefined) {
+                color = opt1;
+                size  = opt2;
         }
         
         
-        return { //TODO check if this work..
-            x        : x,
-            y        : y,
-            xSpeed   : 0,
-            ySpeed   : 0,
-            shape    : "circle",
-            size     : size,
-            color    : color,
-            
-            /* Functions */
-            draw     : draw,
-            drawAt   : drawAt
+        return new function() {
+		    return {
+                x        : x,
+                y        : y,
+                xSpeed   : 0,
+                ySpeed   : 0,
+                shape    : "circle",
+                size     : size,
+                color    : color,
+                
+                /* Functions */
+                draw     : draw,
+                drawAt   : drawAt
+			}
         };
     }
      
@@ -111,12 +115,18 @@
      */
     draw = function(x, y)
     {
-            var canvas = document.getElementById("myCanvas").getContext("2d");
+	        console.log("Draw ["+x+", "+y+"]");
+			this.x += x;
+			this.y += y;
+			
+            /*var canvas = document.getElementById("myCanvas").getContext("2d");
            
             context.beginPath();
             context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
             context.fillStyle = "#8ED6FF";
-            context.fill();
+            context.fill();*/
+			
+			return this;
     }
     
     
@@ -125,7 +135,10 @@
      */
     drawAt = function(x, y)
     {
-    
+	    this.x = x;
+		this.y = y;
+		
+        return this;
     }
     
     
