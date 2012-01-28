@@ -20,7 +20,7 @@
 		
 		canvas {
 		    border: 1px solid black;
-			margin: 10px;
+			margin: 10px 0px 0px 18px;
 			width: 800px;
 			height: 400px;
 		}
@@ -33,6 +33,13 @@
 		canvas.m {
 		    width: 400px;
 			height: 200px;
+		}
+		
+		canvas + p {
+		    font-family: verdana;
+			font-size: 14px;
+			margin: 0px 0px 10px 17px;
+			
 		}
 		
 		#wrapper {
@@ -51,6 +58,8 @@
     <div id="wrapper">
         <h1>Circle test</h1>
 	    <canvas id="circle" class="m" ></canvas>
+		<p>Animera en cirkel som åker neråt.</p>
+		
 	    <script type="text/javascript">
 	        circle = $2DC.circle(50, 50, "lightgreen", 20);
 	    	
