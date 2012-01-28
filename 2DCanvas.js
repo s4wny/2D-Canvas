@@ -91,7 +91,7 @@
         
         
         return new function() {
-		    return {
+            return {
                 x        : x,
                 y        : y,
                 xSpeed   : 0,
@@ -103,7 +103,7 @@
                 /* Functions */
                 draw     : draw,
                 drawAt   : drawAt
-			}
+            }
         };
     }
      
@@ -148,7 +148,6 @@
 		this.y = y;
 		
 		drawImgObj.call(this);
-		
         return this;
     }
     
