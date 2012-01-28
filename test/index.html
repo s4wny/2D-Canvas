@@ -6,9 +6,16 @@
 	<script type="text/javascript" src="../sizzle.js"></script>
 	<script type="text/javascript" src="../2DCanvas.js"></script>
 	
+	<!-- Syntax highlighting -->
+	<script type="text/javascript" src="syntaxhighlight/scripts/shCore.js"></script>
+	<script type="text/javascript" src="syntaxhighlight/scripts/shBrushJScript.js"></script>
+	<link type="text/css" rel="stylesheet" href="syntaxhighlight/styles/shCoreDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
 	<style type="text/css">
 	    .space {
 		    padding-top: 50px;
+			border-bottom: 1px solid black;
 		}
 		
 		canvas {
@@ -28,17 +35,40 @@
 			height: 200px;
 		}
 		
-		body {
+		#wrapper {
 		    width: 1000px;
 			margin: 0px auto;
 		}
+		
+		pre {
+		    border-radius: 10px;
+			border: 1px solid black;
+		}
+		
 	</style>
 </head>
 <body>
-    <h1>Circle test</h1>
-	<canvas id="circle" class="m" ></canvas>
+    <div id="wrapper">
+        <h1>Circle test</h1>
+	    <canvas id="circle" class="m" ></canvas>
+	    <script type="text/javascript">
+	        circle = $2DC.circle(50, 50, "lightgreen", 20);
+	    	
+	    	$2DC("#circle").update(30, function() {
+	    	    circle.draw(1, 1);
+	    	});
+	    </script>
+	    
+	    <pre class="brush: js">
+circle = $2DC.circle(50, 50, "lightgreen", 20);
+	     
+$2DC("#circle").update(30, function() {
+	circle.draw(1, 1);
+});</pre>
 	
-	<div class="space"></div>
-	
+	    <div class="space"></div>
+		
+		
+    </div>	
 </body>
 </html>

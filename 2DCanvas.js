@@ -3,7 +3,7 @@
  *
  *
  * @author Sony? aka Sawny @link http://4morefun.net
-           Matert
+ * @author Matert
  */
  
 (function() {
@@ -14,36 +14,47 @@
     
     $2DC = function(selector)
     {
-        
+        $2DC.selector = null;
+		
         //Selector?
-        if(selector != null && selector != undefined && selector != "") {
-            var selector = Sizzle(selector);
-            console.log("Ej Tom");
-        }
-        
-        console.log(selector);
-        
-        
-        //$2DC(selector).x
-        return new function() {
-            return {
-            
-                /**
-                 *
-                 */
-                update : function(fps) {
-                
-                },
-                
-                
-                /** 
-                 *
-                 */
-                start : function() {
-                
+        if(selector != null && selector != undefined && selector != "")
+		{			
+			$2DC.selector   = Sizzle(selector);
+			$2DC.selectorID = $2DC.selector[0].outerHTML.replace(/[^a-z]/gi, "");
+			
+            return new function() {
+                return {
+					
+                    /**
+					 * Start a loop
+                     *
+		    		 * @param (int)      fps   = Frames per second
+		    		 * @param (function) loop  = The function that will run $fps times per second.
+                     */
+                    update : function(fps, loop) {
+
+                        //Good parms?
+		    			fps   = (isInt(fps))   ? fps  : console.error("$2DC().update(); require parm 1 to be an integer.");
+		    			floop = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
+						
+						
+		    			$2DC[$2DC.selectorID] = setInterval(loop, 1000 / fps);
+                    },
+                    
+                    
+                    /** 
+                     *
+                     */
+                    start : function(selector) {
+                        //TODO: 
+                    }
                 }
             }
-        }
+		}
+		else
+		{
+		    console.warn("$2DC's functions:\n..."); //TODO: Quick ref of all functions
+		}
     }
     
     
@@ -67,8 +78,6 @@
      */
     $2DC.circle = function(x, y, opt1, opt2)
     {
-	    console.log("Circle ["+x+", "+y+"]");
-		
         //Opts
         if(isInt(opt1) && opt1 !== undefined) {
                 size  = opt1;
@@ -115,18 +124,18 @@
      */
     draw = function(x, y)
     {
-	        console.log("Draw ["+x+", "+y+"]");
-			this.x += x;
-			this.y += y;
-			
-            /*var canvas = document.getElementById("myCanvas").getContext("2d");
-           
-            context.beginPath();
-            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-            context.fillStyle = "#8ED6FF";
-            context.fill();*/
-			
-			return this;
+			if(!isset($2DC.selector)) {
+			    console.error("Specify an element! I.e: $2DC('#myCanvas');");
+			}
+			else
+			{
+			    this.x += (isInt(x)) ? x : 0;
+			    this.y += (isInt(y)) ? y : 0;
+			    
+				drawImgObj.call(this);
+			    
+			    return this;
+			}
     }
     
     
@@ -137,6 +146,8 @@
     {
 	    this.x = x;
 		this.y = y;
+		
+		drawImgObj.call(this);
 		
         return this;
     }
@@ -149,23 +160,32 @@
     // Helpers
     //------------------------------------------------------------
     
-    /**
-     * Return the color in x (TODO: rgb?)
-     */
-    var getColor = function(color) {
+	
+	/**
+	 * Draw an image object. I.e a cirlce.
+	 *
+	 * Call this function with drawImgObj.call(this);.
+	 *
+	 * @author Sawny
+	 */
+	drawImgObj = function()
+	{
+	    canvas = $2DC.selector[0].getContext("2d");
+        canvas.beginPath();
+		canvas.fillStyle = this.color;
         
-        //if match
-                //x = A-F0-9
-            //#xxx            = hex
-            //#xxxxxx         = hex
-                //x = 0-255, y = 0-1
-            //rgb(x, x, x)    = rgb
-            //rgba(x, x, x, y)   = rgba
-        //else
-            //color table
-    }
-    
-    
+		switch(this.shape)
+		{
+		    case "circle":
+			    canvas.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
+			break;
+			default: console.error("Undefined shape!"); break;
+		}
+        
+		canvas.fill();
+	}
+	
+
     /**
      * IE, Don't dIE, yet.
      *
@@ -176,8 +196,10 @@
     var alertFallback = true;
     
     if (typeof console === "undefined" || typeof console.log === "undefined") {
-        console     = {};
-        console.log = function(){};
+        console       = {};
+        console.log   = function(){};
+        console.error = function(){};
+        console.warn  = function(){};
     }
     
     
@@ -187,10 +209,50 @@
      * @author Matert
      */
     function isInt(i){
-        return typeof i == "number";
+        return (typeof i == "undefined") ? false : typeof i == "number";
     }
+	
+	
+	/**
+	 * Is boolean?
+	 *
+	 * @author Sony? aka Sawny
+	 */
+	function isBool(x) {
+	    return (typeof x == "undefined") ? false : typeof x == "boolean";
+	}
     
+	
+	/**
+	 * Is function?
+	 *
+	 * @author Sony? aka Sawny
+	 */
+	function isFunc(x) {
+	    return (typeof x == "undefined") ? false : typeof x == "function";
+	}
     
+	
+	/**
+	 * Is null?
+	 *
+	 * @author Sony? aka Sawny
+	 */
+	function isNull(x) {
+	    return (typeof x == "undefined") ? false : x == null;
+	}
+	
+	
+	/**
+	 * Is null?
+	 *
+	 * @author Sony? aka Sawny
+	 */
+	function isset(x) {
+	    return typeof x != "undefined";
+	}
+	
+	
     
     //Jailbreak!
     window.$2DC = $2DC;
