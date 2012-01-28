@@ -15,30 +15,30 @@
     $2DC = function(selector)
     {
         $2DC.selector = null;
-		
+        
         //Selector?
         if(selector != null && selector != undefined && selector != "")
-		{			
-			$2DC.selector   = Sizzle(selector);
-			$2DC.selectorID = $2DC.selector[0].outerHTML.replace(/[^a-z]/gi, "");
-			
+        {            
+            $2DC.selector   = Sizzle(selector);
+            $2DC.selectorID = $2DC.selector[0].outerHTML.replace(/[^a-z]/gi, "");
+            
             return new function() {
                 return {
-					
+                    
                     /**
-					 * Start a loop
+                     * Start a loop
                      *
-		    		 * @param (int)      fps   = Frames per second
-		    		 * @param (function) loop  = The function that will run $fps times per second.
+                     * @param (int)      fps   = Frames per second
+                     * @param (function) loop  = The function that will run $fps times per second.
                      */
                     update : function(fps, loop) {
 
                         //Good parms?
-		    			fps   = (isInt(fps))   ? fps  : console.error("$2DC().update(); require parm 1 to be an integer.");
-		    			floop = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
-						
-						
-		    			$2DC[$2DC.selectorID] = setInterval(loop, 1000 / fps);
+                        fps   = (isInt(fps))   ? fps  : console.error("$2DC().update(); require parm 1 to be an integer.");
+                        floop = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
+                        
+                        
+                        $2DC[$2DC.selectorID] = setInterval(loop, 1000 / fps);
                     },
                     
                     
@@ -50,11 +50,11 @@
                     }
                 }
             }
-		}
-		else
-		{
-		    console.warn("$2DC's functions:\n..."); //TODO: Quick ref of all functions
-		}
+        }
+        else
+        {
+            console.warn("$2DC's functions:\n..."); //TODO: Quick ref of all functions
+        }
     }
     
     
@@ -124,18 +124,18 @@
      */
     draw = function(x, y)
     {
-			if(!isset($2DC.selector)) {
-			    console.error("Specify an element! I.e: $2DC('#myCanvas');");
-			}
-			else
-			{
-			    this.x += (isInt(x)) ? x : 0;
-			    this.y += (isInt(y)) ? y : 0;
-			    
-				drawImgObj.call(this);
-			    
-			    return this;
-			}
+            if(!isset($2DC.selector)) {
+                console.error("Specify an element! I.e: $2DC('#myCanvas');");
+            }
+            else
+            {
+                this.x += (isInt(x)) ? x : 0;
+                this.y += (isInt(y)) ? y : 0;
+                
+                drawImgObj.call(this);
+                
+                return this;
+            }
     }
     
     
@@ -144,10 +144,10 @@
      */
     drawAt = function(x, y)
     {
-	    this.x = x;
-		this.y = y;
-		
-		drawImgObj.call(this);
+        this.x = x;
+        this.y = y;
+        
+        drawImgObj.call(this);
         return this;
     }
     
@@ -159,31 +159,31 @@
     // Helpers
     //------------------------------------------------------------
     
-	
-	/**
-	 * Draw an image object. I.e a cirlce.
-	 *
-	 * Call this function with drawImgObj.call(this);.
-	 *
-	 * @author Sawny
-	 */
-	drawImgObj = function()
-	{
-	    canvas = $2DC.selector[0].getContext("2d");
+    
+    /**
+     * Draw an image object. I.e a cirlce.
+     *
+     * Call this function with drawImgObj.call(this);.
+     *
+     * @author Sawny
+     */
+    drawImgObj = function()
+    {
+        canvas = $2DC.selector[0].getContext("2d");
         canvas.beginPath();
-		canvas.fillStyle = this.color;
+        canvas.fillStyle = this.color;
         
-		switch(this.shape)
-		{
-		    case "circle":
-			    canvas.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
-			break;
-			default: console.error("Undefined shape!"); break;
-		}
+        switch(this.shape)
+        {
+            case "circle":
+                canvas.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
+            break;
+            default: console.error("Undefined shape!"); break;
+        }
         
-		canvas.fill();
-	}
-	
+        canvas.fill();
+    }
+    
 
     /**
      * IE, Don't dIE, yet.
@@ -210,48 +210,48 @@
     function isInt(i){
         return (typeof i == "undefined") ? false : typeof i == "number";
     }
-	
-	
-	/**
-	 * Is boolean?
-	 *
-	 * @author Sony? aka Sawny
-	 */
-	function isBool(x) {
-	    return (typeof x == "undefined") ? false : typeof x == "boolean";
-	}
     
-	
-	/**
-	 * Is function?
-	 *
-	 * @author Sony? aka Sawny
-	 */
-	function isFunc(x) {
-	    return (typeof x == "undefined") ? false : typeof x == "function";
-	}
     
-	
-	/**
-	 * Is null?
-	 *
-	 * @author Sony? aka Sawny
-	 */
-	function isNull(x) {
-	    return (typeof x == "undefined") ? false : x == null;
-	}
-	
-	
-	/**
-	 * Is null?
-	 *
-	 * @author Sony? aka Sawny
-	 */
-	function isset(x) {
-	    return typeof x != "undefined";
-	}
-	
-	
+    /**
+     * Is boolean?
+     *
+     * @author Sony? aka Sawny
+     */
+    function isBool(x) {
+        return (typeof x == "undefined") ? false : typeof x == "boolean";
+    }
+    
+    
+    /**
+     * Is function?
+     *
+     * @author Sony? aka Sawny
+     */
+    function isFunc(x) {
+        return (typeof x == "undefined") ? false : typeof x == "function";
+    }
+    
+    
+    /**
+     * Is null?
+     *
+     * @author Sony? aka Sawny
+     */
+    function isNull(x) {
+        return (typeof x == "undefined") ? false : x == null;
+    }
+    
+    
+    /**
+     * Is null?
+     *
+     * @author Sony? aka Sawny
+     */
+    function isset(x) {
+        return typeof x != "undefined";
+    }
+    
+    
     
     //Jailbreak!
     window.$2DC = $2DC;
