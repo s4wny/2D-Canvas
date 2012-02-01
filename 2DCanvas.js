@@ -20,7 +20,7 @@
         if(selector != null && selector != undefined && selector != "")
         {            
             $2DC.selector   = Sizzle(selector);
-            $2DC.selectorID = $2DC.selector[0].outerHTML.replace(/[^a-z]/gi, "");
+            $2DC.selectorID = $2DC.selector[0].outerHTML.replace(/[^a-z]/gi, ""); //TODO: remove.
             
             return new function() {
                 return {
@@ -37,7 +37,7 @@
                         fps   = (isInt(fps))   ? fps  : console.error("$2DC().update(); require parm 1 to be an integer.");
                         floop = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
                         
-                        
+                        //TODO: random number. return it.
                         $2DC[$2DC.selectorID] = setInterval(loop, 1000 / fps);
                     },
                     
