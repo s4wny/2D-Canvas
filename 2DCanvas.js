@@ -20,7 +20,7 @@
         if(selector != null && selector != undefined && selector != "")
         {            
             $2DC.selector = (isString(selector)) ? Sizzle(selector) : selector;
-			
+            
             return new function() {
                 return {
                     
@@ -36,16 +36,16 @@
                         fps   = (isInt(fps))   ? fps  : console.error("$2DC().update(); require parm 1 to be an integer.");
                         floop = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
                         
-						updateKey = setInterval(loop, 1000 / fps);
-						
-						console.log($2DC.loops);
-						
-						$2DC.loops.selector[updateKey] = $2DC.selector;
-						$2DC.loops.fps[updateKey]      = fps;
-						$2DC.loops.loop[updateKey]     = loop;
-						
-						
-						return updateKey;
+                        updateKey = setInterval(loop, 1000 / fps);
+                        
+                        console.log($2DC.loops);
+                        
+                        $2DC.loops.selector[updateKey] = $2DC.selector;
+                        $2DC.loops.fps[updateKey]      = fps;
+                        $2DC.loops.loop[updateKey]     = loop;
+                        
+                        
+                        return updateKey;
                     }
                 }
             }
@@ -56,62 +56,62 @@
         }
     }
     
-	
-	
-	
-	
-    //------------------------------------------------------------
-	// Vars
-	//------------------------------------------------------------
-	$2DC.loops          = {}; //Update's setinterval ID will be the key for selector, fps and loop.
-	$2DC.loops.selector = {}; //The selector
-	$2DC.loops.fps      = {}; //FPS value
-	$2DC.loops.loop     = {}; //The callback loop
-	
     
-	
-	
-	
+    
+    
+    
+    //------------------------------------------------------------
+    // Vars
+    //------------------------------------------------------------
+    $2DC.loops          = {}; //Update's setinterval ID will be the key for selector, fps and loop.
+    $2DC.loops.selector = {}; //The selector
+    $2DC.loops.fps      = {}; //FPS value
+    $2DC.loops.loop     = {}; //The callback loop
+    
+    
+    
+    
+    
     //------------------------------------------------------------
     // Misc functions
     //------------------------------------------------------------
-	
-	
+    
+    
     /** 
      * @note: This function CAN'T chain. Cux this functions need to return the setInterval key.
-	 * @TODO: Check if the updateKey exists, else console.warn();
+     * @TODO: Check if the updateKey exists, else console.warn();
      */
     $2DC.start = function(updateKey) {
-	    (!isInt(updateKey)) ? console.warn("$2DC.start(updateKey) needs one int parm."):0;
-		
-		return $2DC($2DC.loops.selector[updateKey]).update($2DC.loops.fps[updateKey], $2DC.loops.loop[updateKey]);
+        (!isInt(updateKey)) ? console.warn("$2DC.start(updateKey) needs one int parm."):0;
+        
+        return $2DC($2DC.loops.selector[updateKey]).update($2DC.loops.fps[updateKey], $2DC.loops.loop[updateKey]);
     }
-	
-	
-	/**
-	 *
-	 */
-	$2DC.stop = function(updateKey) {
-	    clearInterval(updateKey);
-		return this;
-	}
-	
-	
-	
-	
-	
+    
+    
+    /**
+     *
+     */
+    $2DC.stop = function(updateKey) {
+        clearInterval(updateKey);
+        return this;
+    }
+    
+    
+    
+    
+    
     //------------------------------------------------------------
     // Interactive functions
     //------------------------------------------------------------
     
-	
-	
-	
-	
+    
+    
+    
+    
     //------------------------------------------------------------
     // Draw functions
     //------------------------------------------------------------
-	
+    
     /**
      * Make circle.
      *
@@ -278,7 +278,7 @@
         return (typeof x == "undefined") ? false : typeof x == "function";
     }
     
-	/**
+    /**
      * Is function?
      *
      * @author Sony? aka Sawny
@@ -306,27 +306,27 @@
         return typeof x != "undefined";
     }
     
-	
-	/**
-	 *
-	 * @todo:   Allow decimals as first and second parm to.
-	 * @params (int) max
-	 * @params (int) min
-	 * @params (int) dicimals = True to get decimlas. False to round. Default false.
-	 * @author http://stackoverflow.com/a/1527820/996028
-	 */
-	function random(max, min, decimals) {
-		max      = (isInt(max))       ? max      : 32767;
-		min      = (isInt(min))       ? min      : 0;
-	    decimals = (isBool(decimals)) ? decimals : false;
-		
-	    if(decimals) {
-    		return Math.random() * (max - min) + min
-		}
-		else {
-		    return Math.floor(Math.random() * (max - min + 1)) + min;
-		}
-	}
+    
+    /**
+     *
+     * @todo:   Allow decimals as first and second parm to.
+     * @params (int) max
+     * @params (int) min
+     * @params (int) dicimals = True to get decimlas. False to round. Default false.
+     * @author http://stackoverflow.com/a/1527820/996028
+     */
+    function random(max, min, decimals) {
+        max      = (isInt(max))       ? max      : 32767;
+        min      = (isInt(min))       ? min      : 0;
+        decimals = (isBool(decimals)) ? decimals : false;
+        
+        if(decimals) {
+            return Math.random() * (max - min) + min
+        }
+        else {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    }
     
     
     //Jailbreak!
