@@ -6,11 +6,13 @@
 	<script type="text/javascript" src="../sizzle.js"></script>
 	<script type="text/javascript" src="../2DCanvas.js"></script>
 	
+	<!-- jquery -->
+    <script type="text/javascript" src="jquery/jquery.js"></script>
+	
 	<!-- Syntax highlighting -->
 	<script type="text/javascript" src="syntaxhighlight/scripts/shCore.js"></script>
 	<script type="text/javascript" src="syntaxhighlight/scripts/shBrushJScript.js"></script>
 	<link type="text/css" rel="stylesheet" href="syntaxhighlight/styles/shCoreDefault.css"/>
-	<script type="text/javascript">SyntaxHighlighter.all();</script>
 	
 	<style type="text/css">
 	    .space {
@@ -53,6 +55,18 @@
 		}
 		
 	</style>
+	<script type="text/javascript">
+        $(document).ready(function() { //Show the ocde and syntax highlight it!
+			scriptTags = $("#wrapper script");
+		
+		    $.each(scriptTags, function(key, tag) {
+			    $(this).after('<pre class="brush: js">'+ $.trim($(this).html()) +'</pre>');
+			});
+			
+			SyntaxHighlighter.all();
+		});
+	</script>
+	
 </head>
 <body>
     <div id="wrapper">
@@ -61,21 +75,30 @@
 		<p>Animera en cirkel som åker neråt.</p>
 		
 	    <script type="text/javascript">
-	        circle = $2DC.circle(50, 50, "lightgreen", 20);
-	    	
-	    	$2DC("#circle").update(30, function() {
-	    	    circle.draw(1, 1);
-	    	});
-	    </script>
-	    
-	    <pre class="brush: js">
 circle = $2DC.circle(50, 50, "lightgreen", 20);
-	     
+	    	
 $2DC("#circle").update(30, function() {
 	circle.draw(1, 1);
-});</pre>
+});
+        </script>
 	
 	    <div class="space"></div>
+		<!-- - -->
+		
+		
+		
+		<h1>Multiply screen test</h1>
+	    <canvas id="screens" class="m" ></canvas>
+		<p>Menu, game and a gameover screen.</p>
+		
+	    <script type="text/javascript">
+			//TODO: meny, en boll, en slut scen
+			
+	    </script>
+	
+	    <div class="space"></div>
+		<!-- - -->
+		
 		
 		
     </div>	
