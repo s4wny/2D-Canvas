@@ -1,5 +1,3 @@
-<?php
-
 $color = "hex",
          rgb(x, x, x),
          "blue",
