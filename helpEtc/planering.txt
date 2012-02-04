@@ -1,0 +1,160 @@
+<?php
+
+$color = "hex",
+         rgb(x, x, x),
+         "blue",
+         "red",
+         ...
+
+
+random(max)
+random(min, max)
+rgb(r, g, b [, a])
+
+function $2DC([cssSelector])
+    function update(fps / callback[, callback])
+    function clearScreen([$color = white]);
+    function keyDown(key / callback($e)[, callback]); // (key) = return true if key down. (key callback) = run callback. (callback(e)) = run callback with $e. $e = the key that was down. The callback will loop trough all keys that was pressed down.
+    function distance(imgObj1, imgObj2 [, callback($distance)]); //Return distance.
+    function 
+
+
+    function circle(diameter, color [, x = 0[, y = 0]]); //Return a "imgObj"
+        function draw([x, [, y]]); //circle's x/y + draw's x/y. (+=)
+        function drawAt(x, y); //x and y to draw the circle on
+        function move((string) key [, px]); //$key = u/r/d/l. $px = pixels to move imgObj.
+        function move(x, y); // += xy
+        function setSpeed((string) key [, speed]); //$key = u/r/d/l. $speed = new speed in px.
+        function setSpeed(x, y); // = xy
+        function moveOnKeyDown([px [, (1D / 2D obj) keyMapping]]); //Move imgObj $px. 1D keymapping: {'top|right|down|left'} (just one letter, E.g {'wasd'}. 2D keymapping: {{*top*}, {...}, ...} TODO: better comment
+            function moveOnKeyDown(5, {{'w', 'up'}, {'right'}, {'s'}, {'left'});
+            function moveOnKeyDown(5, {'wasd', 'ijkl'});
+        function outOfScreen([callback(side)]) //Return up/right/down/left / false.
+        function hasColliedWith(imgObj2 [, callback($dir)]); //top/right/bottom/left OR false. Callback just run if result !== false.
+
+
+## Arrows / directions ##
+u/r/d/l = up / right / down / left
+
+up
+right
+down
+left
+
+        
+## imgObj ##
+x
+y
+xSpeed
+ySpeed
+color
+*functions*
+
+circle
+    size (diameter)
+
+
+        
+$2DC("#canvaId").update(function() { //Return link to the anonym function, so we can stop it and start it later.
+$2DC("#canvaId").update(50, function() { //50 = fps
+    
+    $2DC.clearScreen("#FFF");
+    
+    //Rita ut cirkel
+    //----------------------------------------------------
+    
+    circle1 = $2DC.circle(30, blue); //{size: 30, color: #00F, x: 0, y: 0, *functions*}
+    circle1.draw(10, 10); //10, 10
+    circle1.draw(10, -3); //20, 7
+    
+    circle2 = $2DC.circle(30, red, 10, 15).draw(); //{size: 30, color: #00F, x: 10, y: 15, *functions*}
+    
+    
+    //Styr med piltangenterna
+    //----------------------------------------------------
+    
+    if($2DC.keyDown('up')) {
+       circle1.draw(3, 0); //3px upp
+    }
+    
+    $2DC.keyDown('up', function() {
+        circle1.draw(3, 0);
+    });
+    
+    
+    $2DC.keyDown(function(key) { //Key = a char. Not a number.
+        switch(key)
+        {
+            case 'a': break;
+            ...
+        }
+    });
+    
+    
+    //Krockat?
+    //----------------------------------------------------
+    
+    circle1.hasColliedWith(circle2); //top/right/bottom/left OR false
+    circle1.hasColliedWith(circle2, function() {
+        $2DC.stop($2DC(this));
+    });
+});
+
+
+
+//----------------------------------------------------
+// Enkelt spel, undvik bollarna
+//----------------------------------------------------
+
+//Skapa 10 bollar, med olika storlek, olika färger, och olika start hastighet.
+for($i = 0, $i < 10, $i++) {
+    $balls[$i]    = $2DC.circle(random(20, 30), rgb(random(255), random(255), random(255)));
+    $balls.xSpeed = random(-7, 7);
+    $balls.ySpeed = random(-7, 7);
+}
+
+$playerBall = $2DC.circle(40, lightgreen);
+
+$game = $2DC("#canvas").update(30, function() {
+    $2DC.clearScreen("#FFF");
+    
+    $2DC.keyDown(function(key) {
+        $playerBall.move(key, 5); //Move some direction (up, right, down, left) 5 px.
+    });
+    
+    $playerBall.moveOnKeyDown(5); //Same as above
+    $playerBall.draw();           
+    
+    //Loop through all enemie balls.
+    foreach($balls, function(k, $ball) {
+        
+        //Is the ball out of screen?
+        $ball.outOfScreen(function(side) {
+            $ball.move(side, -5); //E.g. Move up -5px = move down 5px.
+            $ball.setSpeed(side, parseInt("-"+ random(3, 7))); //Change $x- or $y- Speed.
+        });
+        
+        $ball.draw($ball.xSpeed, $ball.ySpeed);
+        
+        //Collied with player?
+        $ball.hasColliedWith($playerBall, function() {
+            //FAAAIL
+            $game.stop();        //TODO, should stop() stop execution? Or will the program finnish one last loop? //TODO: doc me
+            $2DC.start($endScreen);  //TODO: doc me
+        });
+    });
+
+});
+
+
+$endScreen = $2DC("#canvas").update(30, function() {
+    $2DC.clearScreen("#FFF");
+    $2DC.text("Game over! :(", 24).draw(100, 100); //TODO: Center? //TODO: doc me
+    $2DC.text("(R to Restart)", 18, grey).draw(120, 120); //TODO: under text before?
+    
+    $2DC.keyDown('r', function() {
+        $endScreen.stop();
+        $2DC.start($game);
+    });
+    
+});
