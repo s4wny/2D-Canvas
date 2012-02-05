@@ -1,3 +1,25 @@
 1, fix bugs
 2, new content
 3,
+
+
+Functions
+=========
+function $2DC
+    function clearScreen([$color = white]);
+    function keyDown(key / callback($e)[, callback]); // (key) = return true if key down. (key callback) = run callback. (callback(e)) = run callback with $e. $e = the key that was down. The callback will loop trough all keys that was pressed down.
+    function distance(imgObj1, imgObj2 [, callback($distance)]); //Return distance.
+    function 
+
+
+    function circle(diameter, color [, x = 0[, y = 0]]); //Return a "imgObj"
+        function drawAt(x, y); //x and y to draw the circle on
+        function move((string) key [, px]); //$key = u/r/d/l. $px = pixels to move imgObj.
+        function move(x, y); // += xy
+        function setSpeed((string) key [, speed]); //$key = u/r/d/l. $speed = new speed in px.
+        function setSpeed(x, y); // = xy
+        function moveOnKeyDown([px [, (1D / 2D obj) keyMapping]]); //Move imgObj $px. 1D keymapping: {'top|right|down|left'} (just one letter, E.g {'wasd'}. 2D keymapping: {{*top*}, {...}, ...} TODO: better comment
+            function moveOnKeyDown(5, {{'w', 'up'}, {'right'}, {'s'}, {'left'});
+            function moveOnKeyDown(5, {'wasd', 'ijkl'});
+        function outOfScreen([callback(side)]) //Return up/right/down/left / false.
+        function hasColliedWith(imgObj2 [, callback($dir)]); //top/right/bottom/left OR false. Callback just run if result !== false.
