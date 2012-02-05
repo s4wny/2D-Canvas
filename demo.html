@@ -75,16 +75,48 @@
 		<p>Animera en cirkel som åker neråt.</p>
 		
 	    <script type="text/javascript">
-circle = $2DC.circle(50, 50, "lightgreen", 20);
+circle1A = $2DC.circle(50, 50, "lightgreen", 20);
 	    	
 $2DC("#circle").update(30, function() {
-	circle.draw(1, 1);
+	circle1A.draw(1, 1);
 });
         </script>
 	
 	    <div class="space"></div>
 		<!-- - -->
 		
+		
+		
+		<h1>Styr en boll</h1>
+	    <canvas id="moveBall" class="m" ></canvas>
+		<p>Styr en boll.</p>
+		
+	    <script type="text/javascript">
+circle1B = $2DC.circle(50, 50, "lightgreen", 20);
+	    	
+$2DC("#moveBall").update(30, function() {
+    //Syntax 1
+	if($2DC.keyDown('left')) {
+	    circle1B.draw(-1, 0);
+	}
+	else if($2DC.keyDown('right')) {
+	    circle1B.draw(1, 0);
+	}
+	
+	//Syntax 2
+	$2DC.keyDown('up', function() {
+	    circle1B.draw(0, -1);
+	});
+	
+	$2DC.keyDown('down', function() {
+	    circle1B.draw(0, 1);
+	});
+	
+});
+	    </script>
+	
+	    <div class="space"></div>
+		<!-- - -->
 		
 		
 		<h1>Multiply screen test</h1>
