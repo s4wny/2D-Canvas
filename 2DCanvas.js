@@ -31,15 +31,32 @@
                      * @param (function) loop  = The function that will run $fps times per second.
                      */
                     update : function(fps, loop) {
-
+                        console.log($2DC.loops); //... is set down there...........................
+						
                         //Good parms?
                         fps   = (isInt(fps))   ? fps  : console.error("$2DC().update(); require parm 1 to be an integer.");
-                        floop = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
+                        loop  = (isFunc(loop)) ? loop : console.error("$2DC().update(); require parm 2 to be a function.");
                         
-                        updateKey = setInterval(loop, 1000 / fps);
-                        
-                        console.log($2DC.loops);
-                        
+						
+						//TODO: kommentera....
+						updateKey = random();
+						updateKeys[updateKeys.length] = updateKey;
+						
+						//TODO: kommentera....
+						//Fy fan vad cpe det ser ut. Känsn buggigt oxå. Men hoppas det funkar. Känns som om koden är ihop klistrad och kommer spricka ner som hälst. /Sony? 02-05-2012
+						(function bajsa() {
+						    setTimeout(function() {
+								
+								updateKeys.forEach(function(v, k) {
+									$2DC.selector = $2DC.loops.selector[v];
+								    $2DC.loops.loop[v]();
+								});
+								
+							    bajsa();
+							}, 1000 / fps);
+						})();
+						
+						
                         $2DC.loops.selector[updateKey] = $2DC.selector;
                         $2DC.loops.fps[updateKey]      = fps;
                         $2DC.loops.loop[updateKey]     = loop;
@@ -63,15 +80,121 @@
     //------------------------------------------------------------
     // Vars
     //------------------------------------------------------------
-    $2DC.loops          = {}; //Update's setinterval ID will be the key for selector, fps and loop.
+    updateKeys = new Array();
+	
+	$2DC.loops          = {}; //Update's setinterval ID will be the key for selector, fps and loop.
     $2DC.loops.selector = {}; //The selector
     $2DC.loops.fps      = {}; //FPS value
     $2DC.loops.loop     = {}; //The callback loop
+      
+	  
+	//KeyDown
+	keyDown = new Array(); //An array ... I.e. keyDown['a'] = true. keyDown['f5'] = false.
+	
+	//Keycode table from http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+    keyCodes = {8   : "backspace",
+                9   : "tab",
+                13  : "enter",
+                16  : "shift",
+                17  : "ctrl",
+                18  : "alt",
+                19  : "pause/break",
+                20  : "caps lock",
+                27  : "escape",
+                33  : "page up",
+                34  : "page down",
+                35  : "end",
+                36  : "home",
+                37  : "left",
+                38  : "up",
+                39  : "right",
+                40  : "down",
+                45  : "insert",
+                46  : "delete",
+                48  : "0",
+                49  : "1",
+                50  : "2",
+                51  : "3",
+                52  : "4",
+                53  : "5",
+                54  : "6",
+                55  : "7",
+                56  : "8",
+                57  : "9",
+                65  : "a",
+                66  : "b",
+                67  : "c",
+                68  : "d",
+                69  : "e",
+                70  : "f",
+                71  : "g",
+                72  : "h",
+                73  : "i",
+                74  : "j",
+                75  : "k",
+                76  : "l",
+                77  : "m",
+                78  : "n",
+                79  : "o",
+                80  : "p",
+                81  : "q",
+                82  : "r",
+                83  : "s",
+                84  : "t",
+                85  : "u",
+                86  : "v",
+                87  : "w",
+                88  : "x",
+                89  : "y",
+                90  : "z",
+                91  : "left window key ",
+                92  : "right window key",
+                93  : "select key",
+                96  : "num0",
+                97  : "num1",
+                98  : "num2",
+                99  : "num3",
+                100 : "num4",
+                101 : "num5",
+                102 : "num6",
+                103 : "num7",
+                104 : "num8",
+                105 : "num9",
+                106 : "multiply",
+                107 : "add",
+                109 : "subtract",
+                110 : "decimal point",
+                111 : "divide",
+                112 : "f1",
+                113 : "f2",
+                114 : "f3",
+                115 : "f4",
+                116 : "f5",
+                117 : "f6",
+                118 : "f7",
+                119 : "f8",
+                120 : "f9",
+                121 : "f10",
+                122 : "f11",
+                123 : "f12",
+                144 : "num lock",
+                145 : "scroll lock",
+                186 : "semi-colon",
+                187 : "equal sign",
+                188 : "comma",
+                189 : "dash",
+                190 : "period",
+                191 : "forward slash",
+                192 : "grave accent",
+                219 : "open bracket",
+                220 : "back slash",
+                221 : "close braket",
+                222 : "single quote"};
     
     
-    
-    
-    
+	
+	
+	
     //------------------------------------------------------------
     // Misc functions
     //------------------------------------------------------------
@@ -101,15 +224,117 @@
     
     
     //------------------------------------------------------------
-    // Interactive functions
+    // User interactive functions, like move with keys.
     //------------------------------------------------------------
     
     
+	/**
+	 *
+	 * @param (int) opt1 = Pixels to move when up/left/down/right arrow is pressed.
+	 *     @param (1D array) opt2 = Move when these key is pressed. ['wasd' ,'ijkl']
+	 *     @param (2D array) opt2 = Move when these key is pressed. [['up', 'left', 'down', 'right'], ['w', 'a', 's', 'd']]
+	 *
+	 * @param (1D array) opt1 = Move when these key is pressed. ['wasd' ,'ijkl']
+	 * @param (2D array) opt1 = Move when these key is pressed. [['up', 'left', 'down', 'right'], ['w', 'a', 's', 'd']]
+	 *     @param (int) opt2 = Pixels to move when up/left/down/right arrow is pressed.
+	 *
+	 * @default (int)      opt1 = 5
+	 * @default (2D array) opt2 = [['up', 'left', 'down', 'right'], ['w', 'a', 's', 'd']];
+	 */
+    $2DC.moveOnKeyDown = function(opt1, opt2)
+	{
+	    //Options
+		if(isInt(opt1)) {
+		    if(!isArr(opt2)) {
+			    opt2 = [['up', 'left', 'down', 'right'], ['w', 'a', 's', 'd']];
+			}
+		}
+		else if(isArr(opt1))
+		{
+		    if(!isInt(opt2)) {
+			    opt2 = 5;
+			}
+			
+			temp = opt1;
+			opt1 = opt2;
+			opt2 = temp;
+		}
+		else {
+			opt1 = 5;
+		    opt2 = [['up', 'left', 'down', 'right'], ['w', 'a', 's', 'd']];
+		}
+		
+		
+		//Move
+		
+		
+		return this;
+	}
     
-    
+	
+
+	
+	//Keydown / up
+	window.onkeydown = function(e) {
+		console.log(e.keyCode +" = "+ keyCodes[e.keyCode]); //Debug
+		
+		keyDown[keyCodes[e.keyCode]] = true;
+		
+		
+		//Anti scrolling problem
+		switch(keyCodes[e.keyCode])
+		{
+		    case 'up':
+			case 'left':
+			case 'down':
+			case 'right': return false;
+		}
+	}
+	
+	
+	window.onkeyup = function(e) {
+	    keyDown[keyCodes[e.keyCode]] = false;
+	}
+	
+	/**
+	 *
+	 * @param (string) opt1 = keyDown('up') => true/false
+	 *    @param (function) opt2 = Callback to run on true.
+	 *
+	 * @param (function) opt1(key) = callback to run if any key is down. Will send key as a param. Key = a string i.e: 'up' or 'w'.
+	 */
+	$2DC.keyDown = function(opt1, opt2)
+	{
+	    if(isString(opt1))
+		{
+		    if(isFunc(opt2))
+			{
+			    if(keyDown[opt1]) {
+				    opt2(); //Run callback if opt1 is pressed.
+				}
+			}
+			else {
+			    return keyDown[opt1]; //Return true if opt1 is pressed else false.
+			}
+		}
+		else if(isFunc(opt1))
+		{
+			opt1(keyDown); //TODO: Funkar detta äns? keyDown = null 24/7 :s
+			//TODO: försök köra opt1 lika månag gånger som det finns keyDown[x] = tru.
+		}
+		else {
+		    consolw.warn("-.-'"); //TODO: error mess
+		}
+
+		return this;
+	}
+	
+	
+	
+	
     
     //------------------------------------------------------------
-    // Draw functions
+    // Shape functions, i.e circle, triangle
     //------------------------------------------------------------
     
     /**
@@ -159,7 +384,7 @@
 
      
     //------------------------------------------------------------
-    // ImgObj sub functions
+    // Draw functions
     //------------------------------------------------------------
     
     
@@ -230,8 +455,58 @@
         
         canvas.fill();
     }
-    
+   
 
+	
+	
+	/**
+	 *
+	 * @author http://www.tutorialspoint.com/javascript/array_foreach.htm
+	 */
+    if (!Array.prototype.forEach)
+    {
+        Array.prototype.forEach = function(fun /*, thisp*/)
+        {
+            var len = this.length;
+			
+            if (typeof fun != "function") {
+			    console.error("forEach first parm need to be a function.");
+                throw new TypeError();
+			}
+    
+            var thisp = arguments[1];
+			
+            for (var i = 0; i < len; i++)
+            {
+                if (i in this)
+                    fun.call(thisp, this[i], i, this);
+            }
+        };
+    }
+    
+    
+    /**
+     *
+     * @todo:   Allow decimals as first and second parm to.
+     * @params (int) max
+     * @params (int) min
+     * @params (int) dicimals = True to get decimlas. False to round. Default false.
+     * @author http://stackoverflow.com/a/1527820/996028
+     */
+    function random(max, min, decimals) {
+        max      = (isInt(max))       ? max      : 32767;
+        min      = (isInt(min))       ? min      : 0;
+        decimals = (isBool(decimals)) ? decimals : false;
+        
+        if(decimals) {
+            return Math.random() * (max - min) + min
+        }
+        else {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    }
+	
+	
     /**
      * IE, Don't dIE, yet.
      *
@@ -247,9 +522,9 @@
         console.error = function(){};
         console.warn  = function(){};
     }
-    
-    
-    /**
+	
+	
+	/**
      * Is int? true/false
      *
      * @author Matert
@@ -278,8 +553,9 @@
         return (typeof x == "undefined") ? false : typeof x == "function";
     }
     
+	
     /**
-     * Is function?
+     * Is string?
      *
      * @author Sony? aka Sawny
      */
@@ -287,6 +563,7 @@
         return (typeof x == "undefined") ? false : typeof x == "string";
     }
     
+	
     /**
      * Is null?
      *
@@ -295,7 +572,18 @@
     function isNull(x) {
         return (typeof x == "undefined") ? false : x == null;
     }
-    
+	
+	
+	/**
+    * Is Array?
+    *
+	* @TODO: secound parm. Level/dimension. Is it a 3D array? I.e. isArr([[[1], [2], [3]], [['a'], ['b'], ['c']]], 3) => true
+    * @author Sony? aka Sawny
+    */
+	function isArr(x) {
+	    return (typeof x == "undefined") ? false : typeof x == "array";
+	}
+	
     
     /**
      * Is null?
@@ -304,28 +592,6 @@
      */
     function isset(x) {
         return typeof x != "undefined";
-    }
-    
-    
-    /**
-     *
-     * @todo:   Allow decimals as first and second parm to.
-     * @params (int) max
-     * @params (int) min
-     * @params (int) dicimals = True to get decimlas. False to round. Default false.
-     * @author http://stackoverflow.com/a/1527820/996028
-     */
-    function random(max, min, decimals) {
-        max      = (isInt(max))       ? max      : 32767;
-        min      = (isInt(min))       ? min      : 0;
-        decimals = (isBool(decimals)) ? decimals : false;
-        
-        if(decimals) {
-            return Math.random() * (max - min) + min
-        }
-        else {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
     }
     
     
