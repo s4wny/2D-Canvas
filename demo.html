@@ -75,10 +75,10 @@
 		<p>Animera en cirkel som åker neråt.</p>
 		
 	    <script type="text/javascript">
-circle1A = $2DC.circle(50, 50, "lightgreen", 20);
+circle1A = $2DC.circle(50, 50, "lightgreen", 20); //Skapa en cirkel på plats X50, Y50 med färgen ljusgrön och diamtern 20px.
 	    	
-$2DC("#circle").update(30, function() {
-	circle1A.draw(1, 1);
+$2DC("#circle").update(30, function() { //Kör den anoonyma funktionen 30 gånger per sekund.
+	circle1A.draw(1, 1); //Rita ut circkeln, lägg till 1 på dess X och Y kordinat.
 });
         </script>
 	
@@ -92,12 +92,12 @@ $2DC("#circle").update(30, function() {
 		<p>Styr en boll.</p>
 		
 	    <script type="text/javascript">
-circle1B = $2DC.circle(50, 50, "lightgreen", 20);
+circle1B = $2DC.circle(50, 50, "lightgreen", 20).draw(); //Skapa circlen och rita ut den
 	    	
 $2DC("#moveBall").update(30, function() {
     //Syntax 1
-	if($2DC.keyDown('left')) {
-	    circle1B.draw(-1, 0);
+	if($2DC.keyDown('left')) { //När man trycker ner vänster pil...
+	    circle1B.draw(-1, 0); //...ska bollen ritas ut på +=-1X.
 	}
 	else if($2DC.keyDown('right')) {
 	    circle1B.draw(1, 0);
