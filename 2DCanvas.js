@@ -393,6 +393,7 @@
                 shape    : "rectangle",
                 height   : height,
                 width    : width,
+                color	 : color,
                 
                 /* Functions */
                 draw     : draw,
