@@ -87,29 +87,29 @@ $2DC("#circle").update(30, function() { //Kör den anoonyma funktionen 30 gånge
 		
 		
 		
-		<h1>Styr en boll</h1>
-	    <canvas id="moveBall" class="m" ></canvas>
-		<p>Styr en boll.</p>
+		<h1>Styr en fyrkant</h1>
+	    <canvas id="moveRect" class="m" ></canvas>
+		<p>Styr en fyrkant.</p>
 		
 	    <script type="text/javascript">
-circle1B = $2DC.circle(50, 50, "lightgreen", 20);
+fyrk1B = $2DC.circle(50, 50, 100, 100, "lightblue");
 	    	
-$2DC("#moveBall").update(30, function() {
+$2DC("#moveRect").update(30, function() {
     //Syntax 1
 	if($2DC.keyDown('left')) { //När man trycker ner vänster pil...
-	    circle1B.draw(-1, 0); //...ska bollen ritas ut på +=-1X.
+	    fyrk1B.draw(-1, 0); //...ska bollen ritas ut på +=-1X.
 	}
 	else if($2DC.keyDown('right')) {
-	    circle1B.draw(1, 0);
+	    fyrk1B.draw(1, 0);
 	}
 	
 	//Syntax 2
 	$2DC.keyDown('up', function() {
-	    circle1B.draw(0, -1);
+	    fyrk1B.draw(0, -1);
 	});
 	
 	$2DC.keyDown('down', function() {
-	    circle1B.draw(0, 1);
+	    fyrk1B.draw(0, 1);
 	});
 	
 });
