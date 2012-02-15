@@ -43,7 +43,8 @@
 						updateKeys[updateKeys.length] = updateKey;
 						
 						//TODO: kommentera....
-						//Fy fan vad cpe det ser ut. Känsn buggigt oxå. Men hoppas det funkar. Känns som om koden är ihop klistrad och kommer spricka ner som hälst. /Sony? 02-05-2012
+						//Fy fan vad cpe det ser ut. Kï¿½nsn buggigt oxï¿½. Men hoppas det funkar. Kï¿½nns som om koden ï¿½r ihop klistrad och kommer spricka ner som hï¿½lst. /Sony? 02-05-2012
+						//LOL s4wny alla ska kunna titta pÃ¥ kÃ¥den /matert 15/2 2012
 						(function bajsa() {
 						    setTimeout(function() {
 								
@@ -319,8 +320,8 @@
 		}
 		else if(isFunc(opt1))
 		{
-			opt1(keyDown); //TODO: Funkar detta äns? keyDown = null 24/7 :s
-			//TODO: försök köra opt1 lika månag gånger som det finns keyDown[x] = tru.
+			opt1(keyDown); //TODO: Funkar detta ï¿½ns? keyDown = null 24/7 :s
+			//TODO: fï¿½rsï¿½k kï¿½ra opt1 lika mï¿½nag gï¿½nger som det finns keyDown[x] = tru.
 		}
 		else {
 		    consolw.warn("-.-'"); //TODO: error mess
@@ -378,7 +379,27 @@
             }
         };
     }
-     
+
+
+
+    $2DC.rectangle = function(x, y, width, height, color)
+    {   
+        return new function() {
+            return {
+                x        : x,
+                y        : y,
+                xSpeed   : 0,
+                ySpeed   : 0,
+                shape    : "rectangle",
+                height   : height,
+                width    : width,
+                
+                /* Functions */
+                draw     : draw,
+                drawAt   : drawAt
+            }
+        };
+    }
 
 
 
@@ -442,18 +463,22 @@
     drawImgObj = function()
     {
         canvas = $2DC.selector[0].getContext("2d");
-        canvas.beginPath();
         canvas.fillStyle = this.color;
         
         switch(this.shape)
         {
             case "circle":
+            	canvas.beginPath();
                 canvas.arc(this.x, this.y, this.size, 0, 2 * Math.PI, false);
+                canvas.closePath();
+            	canvas.fill();
+            break;
+            
+            case "rectangle":
+            	canvas.fillRect(this.x, this.y, this.width, this.height);
             break;
             default: console.error("Undefined shape!"); break;
         }
-        
-        canvas.fill();
     }
    
 
