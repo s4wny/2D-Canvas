@@ -429,7 +429,7 @@
                 this.y += (isInt(y)) ? y : 0;
 				
 				//Fyll på med pixlar man varigt på.
-				this.hasBeenOn[] = [this.x, this.y];
+				this.hasBeenOn[this.hasBeenOn.length] = [this.x, this.y];
                 
                 drawImgObj.call(this);
                 
