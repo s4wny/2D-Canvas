@@ -43,7 +43,7 @@
 						updateKeys[updateKeys.length] = updateKey;
 						
 						//TODO: kommentera....
-						//Fy fan vad cpe det ser ut. K�nsn buggigt ox�. Men hoppas det funkar. K�nns som om koden �r ihop klistrad och kommer spricka ner som h�lst. /Sony? 02-05-2012
+						//Fy fan vad cpe det ser ut. K?nsn buggigt ox?. Men hoppas det funkar. K?nns som om koden ?r ihop klistrad och kommer spricka ner som h?lst. /Sony? 02-05-2012
 						//LOL s4wny alla ska kunna titta på kåden /matert 15/2 2012
 						(function bajsa() {
 						    setTimeout(function() {
@@ -320,8 +320,8 @@
 		}
 		else if(isFunc(opt1))
 		{
-			opt1(keyDown); //TODO: Funkar detta �ns? keyDown = null 24/7 :s
-			//TODO: f�rs�k k�ra opt1 lika m�nag g�nger som det finns keyDown[x] = tru.
+			opt1(keyDown); //TODO: Funkar detta ?ns? keyDown = null 24/7 :s
+			//TODO: f?rs?k k?ra opt1 lika m?nag g?nger som det finns keyDown[x] = tru.
 		}
 		else {
 		    consolw.warn("-.-'"); //TODO: error mess
@@ -365,17 +365,18 @@
         
         return new function() {
             return {
-                x        : x,
-                y        : y,
-                xSpeed   : 0,
-                ySpeed   : 0,
-                shape    : "circle",
-                size     : size,
-                color    : color,
+                x         : x,
+                y         : y,
+                xSpeed    : 0,
+                ySpeed    : 0,
+                shape     : "circle",
+                size      : size,
+                color     : color,
+				hasBeenOn : new Array(),
                 
                 /* Functions */
-                draw     : draw,
-                drawAt   : drawAt
+                draw      : draw,
+                drawAt    : drawAt
             }
         };
     }
@@ -386,18 +387,19 @@
     {   
         return new function() {
             return {
-                x        : x,
-                y        : y,
-                xSpeed   : 0,
-                ySpeed   : 0,
-                shape    : "rectangle",
-                height   : height,
-                width    : width,
-                color	 : color,
+                x         : x,
+                y         : y,
+                xSpeed    : 0,
+                ySpeed    : 0,
+                shape     : "rectangle",
+                height    : height,
+                width     : width,
+                color	  : color,
+				hasBeenOn : new Array(),
                 
                 /* Functions */
-                draw     : draw,
-                drawAt   : drawAt
+                draw      : draw,
+                drawAt    : drawAt
             }
         };
     }
@@ -425,6 +427,9 @@
             {
                 this.x += (isInt(x)) ? x : 0;
                 this.y += (isInt(y)) ? y : 0;
+				
+				//Fyll på med pixlar man varigt på.
+				
                 
                 drawImgObj.call(this);
                 
