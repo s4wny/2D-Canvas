@@ -375,8 +375,9 @@
 				hasBeenOn : new Array(),
                 
                 /* Functions */
-                draw      : draw,
-                drawAt    : drawAt
+                draw      	   : draw,
+                drawAt    	   : drawAt,
+				hasCollideWith : hasCollideWith
             }
         };
     }
@@ -398,8 +399,9 @@
 				hasBeenOn : new Array(),
                 
                 /* Functions */
-                draw      : draw,
-                drawAt    : drawAt
+                draw     	   : draw,
+                drawAt  	   : drawAt,
+				hasCollideWith : hasCollideWith
             }
         };
     }
@@ -429,7 +431,7 @@
                 this.y += (isInt(y)) ? y : 0;
 				
 				//Fyll på med pixlar man varigt på.
-				this.hasBeenOn[this.hasBeenOn.length] = [this.x, this.y];
+				this.hasBeenOn[this.hasBeenOn.length] = [this.x, this.y]; //TODO: Platser man varigt på ska inte skrivas igen
                 
                 drawImgObj.call(this);
                 
@@ -451,9 +453,25 @@
     }
     
     
+	
+	
+    //------------------------------------------------------------
+    // Test functions
+    //------------------------------------------------------------
     
+	/**
+	 *
+	 * @return true / false
+	 */
+	hasCollideWith = function(imgObj)
+	{
+		//Har denna hasBennOn + size varigt på någon av imgObj hasBennOn + size?
+		
+	}
     
-    
+	
+	
+	
     //------------------------------------------------------------
     // Helpers
     //------------------------------------------------------------
