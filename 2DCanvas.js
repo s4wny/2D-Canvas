@@ -45,6 +45,7 @@
 						//TODO: kommentera....
 						//Fy fan vad cpe det ser ut. K?nsn buggigt ox?. Men hoppas det funkar. K?nns som om koden ?r ihop klistrad och kommer spricka ner som h?lst. /Sony? 02-05-2012
 						//LOL s4wny alla ska kunna titta på kåden /matert 15/2 2012
+						//LOL2 jag låter som någon sorts tant /matert
 						(function bajsa() {
 						    setTimeout(function() {
 								
@@ -378,6 +379,7 @@
                 draw      	   : draw,
                 drawAt    	   : drawAt,
 				hasCollideWith : hasCollideWith
+								
             }
         };
     }
@@ -465,9 +467,60 @@
 	 */
 	hasCollideWith = function(imgObj)
 	{
-		//Har denna hasBennOn + size varigt på någon av imgObj hasBennOn + size?
-		
-	}
+	//TODO: Bygga vidare på funktionen
+        switch(this.shape)
+        {
+            case "circle":
+            	if (imgObj.shape == "circle"){
+            		imgObj.size + this.size = dis;
+            		if (distance(this.x, this.y, imgObj.x, imgObj.y) == dis){
+            			return true;
+            		}
+            		else{
+            			return false;
+            		}
+            		
+            	}
+            	else if (imgObj == "rectangle"){
+            		
+            	}
+            	else if (imgObj == "triangle"){
+            		
+            	}
+            	else{
+            		console.error("Undefined shape!");
+            	}
+            break;
+            
+            case "rectangle":
+            	if (imgObj == "rectangle"){
+            		
+            	}
+            	else if (imgObj == "triangle"){
+            		
+            	}
+            	else{
+            		console.error("Undefined shape!");
+            	}
+            break;
+            
+            case "triangle":
+            	if (imgObj == "triangle"){
+            		
+            	}
+            	else{
+            		console.error("Undefined shape!");
+            	}
+            break;
+            
+            default: 
+            
+            console.error("Undefined shape!");
+            return false;
+            
+            break;
+        }	
+    }
     
 	
 	
@@ -532,7 +585,18 @@
             }
         };
     }
-    
+
+	/**
+    *@author http://www.spelprogrammering.se/library.js
+    *
+    */
+    function distance(x1, y1, x2, y2)
+	{
+		xdiff = Math.abs(x1 - x2);
+	  	ydiff = Math.abs(y1 - y2);
+
+		return Math.sqrt(xdiff * xdiff + ydiff * ydiff);
+	}
     
     /**
      *
