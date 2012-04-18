@@ -95,6 +95,8 @@ $2DC("#circle").update(30, function() { //Kör den anoonyma funktionen 30 gånge
 fyrk1B = $2DC.rectangle(25, 25, 30, 30, "cyan");
 	    	
 $2DC("#moveRect").update(30, function() {
+    $2DC.clearScreen(); //Clear the screen
+    
     //Syntax 1
 	if($2DC.keyDown('left')) { //När man trycker ner vänster pil...
 	    fyrk1B.draw(-1, 0); //...ska bollen ritas ut på +=-1X.
