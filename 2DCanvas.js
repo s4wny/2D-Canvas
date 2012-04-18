@@ -221,7 +221,15 @@
         return this;
     }
     
-    
+	
+	/**
+	 * Clear screen
+	 */
+    $2DC.clearScreen(color) //TODO: Color, draw().clearScreen();
+	{
+		canvas = $2DC.selector[0].getContext("2d");
+		canvas.clearRect(0, 0, canvas.width, canvas.height);		
+	}
     
     
     
@@ -472,7 +480,7 @@
         {
             case "circle":
             	if (imgObj.shape == "circle"){
-            		imgObj.size + this.size = dis;
+            		dis = imgObj.size + this.size;
             		if (distance(this.x, this.y, imgObj.x, imgObj.y) == dis){
             			return true;
             		}
@@ -515,8 +523,8 @@
             
             default: 
             
-            console.error("Undefined shape!");
-            return false;
+				console.error("Undefined shape!");
+				return false;
             
             break;
         }	
