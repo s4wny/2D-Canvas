@@ -225,7 +225,7 @@
 	/**
 	 * Clear screen
 	 */
-    $2DC.clearScreen(color) //TODO: Color, draw().clearScreen();
+    $2DC.clearScreen = function(color) //TODO: Color, draw().clearScreen();
 	{
 		canvas = $2DC.selector[0].getContext("2d");
 		canvas.clearRect(0, 0, canvas.width, canvas.height);		
