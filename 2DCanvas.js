@@ -227,8 +227,10 @@
 	 */
     $2DC.clearScreen = function(color) //TODO: Color, draw().clearScreen();
 	{
+		console.log($2DC);
 		canvas = $2DC.selector[0].getContext("2d");
-		canvas.clearRect(0, 0, canvas.width, canvas.height);		
+		canvas.clearRect(0, 0, canvas.width, canvas.height);
+		$2DC.rectangle(25, 25, 30, 30, "red");
 	}
     
     
